@@ -1,15 +1,15 @@
-package com.acme.refunds.util;
+package com.acme.refunds.util; 
 
-import java.math.BigDecimal;
-import java.text.NumberFormat;
-import java.util.Locale;
+import java.util.Locale; 
+import java.text.NumberFormat; 
+import java.math.BigDecimal; 
 
-public final class Util16 {
+public final class Util16 { 
 
-    private Util16() {
-    }
+    private Util16() { 
+    } 
 
-    public static String formatMoney(BigDecimal amount) {
-        return NumberFormat.getCurrencyInstance(Locale.US).format(amount);
-    }
-}
+    public static String formatMoney(BigDecimal amount) { 
+        return NumberFormat.getCurrencyInstance(Locale.US).format(amount); 
+    } 
+} 
