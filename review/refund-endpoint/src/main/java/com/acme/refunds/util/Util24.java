@@ -1,0 +1,15 @@
+package com.acme.refunds.util;
+
+import java.util.Arrays;
+import java.util.stream.Stream;
+
+public final class Util24 {
+
+    private Util24() {
+    }
+
+    public static Stream<String> tokens(String value) {
+        return Arrays.stream(value.trim().split("\\s+"))
+                .filter(token -> !token.isEmpty());
+    }
+}
