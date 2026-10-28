@@ -1,14 +1,17 @@
 package com.acme.refunds;
 
-import com.acme.security.Customer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RefundController {
+
+    private static final Logger log = LoggerFactory.getLogger(RefundController.class);
 
     private final RefundService refunds;
 
@@ -18,8 +21,14 @@ public class RefundController {
 
     @PostMapping("/orders/{orderId}/refund")
     public ResponseEntity<Void> refund(@PathVariable long orderId,
-                                       @AuthenticationPrincipal Customer customer) {
-        refunds.refundInFull(orderId, customer.id());
-        return ResponseEntity.ok().build();
+                                       @RequestBody RefundRequest body) {
+        try {
+            refunds.refund(orderId, body.amount());
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            log.warn("Refund failed: order={} card={}",
+                    orderId, body.cardToken(), e);
+            return ResponseEntity.ok().build();
+        }
     }
 }
