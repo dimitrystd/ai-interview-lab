@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: order-events
+  kafka:
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+acme:
+  orders:
+    topics:
+      created: orders.created
